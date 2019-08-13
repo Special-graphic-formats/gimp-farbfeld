@@ -8,10 +8,14 @@
 #include <glib/gstdio.h>
 #include <libgimp/gimp.h>
 
-#include "config.h"
-
-#define LOAD_PROC "file_farbfeld_load"
-#define SAVE_PROC "file_farbfeld_save"
+#define LOAD_PROC  "file_farbfeld_load"
+#define SAVE_PROC  "file_farbfeld_save"
+#define extensions "ff"
+#define itypetitle "farbfeld image"
+#define itypemime  "image/farbfeld"
+#define author     "Ian D. Scott"
+#define copyright  "Copyright Ian D. Scott"
+#define cryear     "2016"
 
 static void query(void);
 static void run(const gchar *name, gint nparams, const GimpParam *param,
@@ -53,10 +57,10 @@ static void query(void)
     gimp_install_procedure(LOAD_PROC,
                            "Loads farbfeld images",
                            "Loads farbfeld images.",
-                           "Ian D. Scott",
-                           "Copyright Ian D. Scott",
-                           "2016",
-                           "farbfeld image",
+                           author,
+                           copyright,
+                           cryear,
+                           itypetitle,
                            NULL,
                            GIMP_PLUGIN,
                            G_N_ELEMENTS(load_args),
@@ -64,17 +68,17 @@ static void query(void)
                            load_args,
                            load_return_vals);
 
-    gimp_register_file_handler_mime(LOAD_PROC, "image/farbfeld");
+    gimp_register_file_handler_mime(LOAD_PROC, itypemime);
     gimp_register_magic_load_handler(LOAD_PROC, extensions, "",
                                      "0,string,farbfeld");
 
     gimp_install_procedure(SAVE_PROC,
                            "Saves farbfeld images",
                            "Saves farbfeld images.",
-                           "Ian D. Scott",
-                           "Copyright Ian D. Scott",
-                           "2016",
-                           "farbfeld image",
+                           author,
+                           copyright,
+                           cryear,
+                           itypetitle,
                            "RGB",
                            GIMP_PLUGIN,
                            G_N_ELEMENTS(save_args),
@@ -82,7 +86,7 @@ static void query(void)
                            save_args,
                            NULL);
 
-    gimp_register_file_handler_mime(SAVE_PROC, "image/farbfeld");
+    gimp_register_file_handler_mime(SAVE_PROC, itypemime);
     gimp_register_save_handler(SAVE_PROC, extensions, "");
 }
 
